@@ -18,5 +18,5 @@ end
 canvas = MockCanvas.new
 
 benchmark do
-  canvas.steps_residues(5_000_000, 10_000_000)
+  canvas.steps_residues(500_000, 1_000_000)
 end
