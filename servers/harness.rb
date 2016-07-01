@@ -24,6 +24,7 @@ loop do
   break if left_in_budget <= tenth_budget
   
   report = `ab -t #{tenth_budget} -n 5000 #{url}`
+  abort unless $?.success?
   puts query.match(report)[1]
   
   sleep 30
