@@ -27,5 +27,8 @@ loop do
   abort unless $?.success?
   puts query.match(report)[1]
   
+  # Always sleep, as we want to allow the ports we've just trashed to recover
+  # before whatever is coming next is run.
+  
   sleep 30
 end
