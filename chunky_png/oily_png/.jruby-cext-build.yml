@@ -1,0 +1,2 @@
+src: ext/oily_png/*.c
+out: lib/oily_png/oily_png.su
