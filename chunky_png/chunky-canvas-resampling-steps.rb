@@ -7,10 +7,21 @@
 # GNU Lesser General Public License version 2.1
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'chunky_png', 'lib')
-require 'chunky_png'
+
+if ENV['USE_CEXTS']
+  $LOAD_PATH << File.join(File.dirname(__FILE__), 'oily_png', 'lib')
+  require 'oily_png'
+else
+  require 'chunky_png'
+end
 
 class MockCanvas
-  include ChunkyPNG::Canvas::Resampling
+  
+  if ENV['USE_CEXTS']
+    include OilyPNG::Resampling
+  else
+    include ChunkyPNG::Canvas::Resampling
+  end
 
   public :steps
 end

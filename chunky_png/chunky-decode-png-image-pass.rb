@@ -13,7 +13,13 @@ class SortedSet < Set
 end
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'chunky_png', 'lib')
-require 'chunky_png'
+
+if ENV['USE_CEXTS']
+  $LOAD_PATH << File.join(File.dirname(__FILE__), 'oily_png', 'lib')
+  require 'oily_png'
+else
+  require 'chunky_png'
+end
 
 WIDTH = 400
 HEIGHT = 400
@@ -22,7 +28,12 @@ DEPTH = 8
 PIXEL = 0x12345678
 
 class MockCanvas
-  extend ChunkyPNG::Canvas::PNGDecoding
+
+  if ENV['USE_CEXTS']
+    extend OilyPNG::PNGDecoding
+  else
+    extend ChunkyPNG::Canvas::PNGDecoding
+  end
 
   class << self
     public :decode_png_image_pass

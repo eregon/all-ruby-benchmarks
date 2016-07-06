@@ -7,12 +7,23 @@
 # GNU Lesser General Public License version 2.1
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'chunky_png', 'lib')
-require 'chunky_png'
+
+if ENV['USE_CEXTS']
+  $LOAD_PATH << File.join(File.dirname(__FILE__), 'oily_png', 'lib')
+  require 'oily_png'
+else
+  require 'chunky_png'
+end
 
 INITIAL_VALUE = 2 ** 62 # Arbitrary long int value.
 
 class MockCanvas
-  include ChunkyPNG::Canvas::Operations
+  
+  if ENV['USE_CEXTS']
+    include OilyPNG::Operations
+  else
+    include ChunkyPNG::Canvas::Operations
+  end
 
   public :compose!
 
