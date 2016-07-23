@@ -33,6 +33,19 @@ benchmark 'core-write-gigabyte' do
   null.write gigabyte
 end
 
+benchmark 'core-big-concat-and-write' do
+  string = '<html>'
+  string += '<ul>'
+  
+  10_000.times do |n|
+    string += '<li>' + n.to_s + '</li>'
+  end
+  
+  string += '</ul>'
+  string += '</html>'
+  null.write string
+end
+
 zero = File.open('/dev/zero')
 
 benchmark 'core-read-kilobyte' do
