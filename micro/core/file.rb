@@ -46,6 +46,21 @@ benchmark 'core-big-concat-and-write' do
   null.write string
 end
 
+benchmark 'core-big-join-and-write' do
+  strings = ['<html>']
+  strings.push '<ul>'
+  
+  10_000.times do |n|
+    strings.push '<li>'
+    strings.push n.to_s
+    strings.push '</li>'
+  end
+  
+  strings.push '</ul>'
+  strings.push '</html>'
+  null.write strings.join
+end
+
 zero = File.open('/dev/zero')
 
 benchmark 'core-read-kilobyte' do
