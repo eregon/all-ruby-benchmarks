@@ -23,7 +23,7 @@ end
 
 benchmark 'restore-line' do
   reader = Asciidoctor::Reader.new
-  604600.times do
+  100.times do
     reader.restore_line 'line'
   end
 end
