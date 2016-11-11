@@ -18,13 +18,10 @@ class NoBorderImage
 
   def index(p, y = nil)
     if p.is_a?(Pixel)
-      idx = p.idx
+      p.idx
     else
-      idx = y * @width + p
+      y * @width + p
     end
-    [[idx, 0].max, @data.length-1].min
-    #[0, idx, @data.length-1].sort[1]
-    #idx < 0 ? 0 : idx >= @data.length ? @data.length-1 : idx
   end
   private :index
 
@@ -33,6 +30,8 @@ class NoBorderImage
   end
 
   def []=(*p, val)
+    idx = index(*p)
+    raise "invalid index: #{idx}" if idx < 0 or idx >= @data.size
     @data[index(*p)] = val
   end
 
@@ -83,11 +82,10 @@ class NoBorderImagePadded < NoBorderImage
 
   def index(p, y = nil)
     if p.is_a? Pixel
-      idx = p.idx
+      p.idx
     else
-      idx = (y+1) * @width + p + 1
+      (y+1) * @width + p + 1
     end
-    [[idx, 0].max, @data.length-1].min
   end
   private :index
 
