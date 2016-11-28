@@ -16,6 +16,7 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), 'chunky_png', 'lib')
 
 if ENV['USE_CEXTS']
   $LOAD_PATH << File.join(File.dirname(__FILE__), 'oily_png', 'lib')
+  $LOAD_PATH << File.join(File.dirname(__FILE__), 'oily_png', 'ext')
   require 'oily_png'
 else
   require 'chunky_png'
